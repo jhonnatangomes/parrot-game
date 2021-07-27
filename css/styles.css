@@ -7,7 +7,7 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
-.titulo{
+.title{
     height: 63px;
     font-size: 56px;
     letter-spacing: -0.004em;
@@ -44,14 +44,18 @@ body{
     margin: 24px 7px 22px 10px;
 }
 
+.hidden{
+    display: none;
+}
+
 @media (max-width: 872px){
 
-    .titulo{
+    .title{
         font-size: 36px;
         text-align: center;
     }
 
-    .titulo-container{
+    .title-container{
         width: 312px;
     }
 

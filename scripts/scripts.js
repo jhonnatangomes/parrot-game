@@ -1,14 +1,26 @@
-function iniciarJogo(){
-    let numCartas = prompt("Com quantas cartas você deseja jogar? (4-14)");
+let cardNumber;
 
-    while(numCartas < 4 || numCartas > 14 || numCartas % 2 == 1){
-        if(numCartas >= 4 && numCartas <= 14){
-            numCartas = prompt("Por favor digite um número par. \nCom quantas cartas você deseja jogar? (4-14)");
+function gameStart(){
+    cardNumber = prompt("Com quantas cartas você deseja jogar? (4-14)");
+
+    while(cardNumber < 4 || cardNumber > 14 || cardNumber % 2 == 1){
+        if(cardNumber >= 4 && cardNumber <= 14){
+            cardNumber = prompt("Por favor digite um número par. \nCom quantas cartas você deseja jogar? (4-14)");
         }
         else{
-            numCartas = prompt("Por favor digite um número entre 4 e 14. \nCom quantas cartas você deseja jogar? (4-14)");
+            cardNumber = prompt("Por favor digite um número entre 4 e 14. \nCom quantas cartas você deseja jogar? (4-14)");
         }
+    }
+
+    generateCards();
+}
+
+function generateCards(){
+    const cards = document.querySelectorAll(".card");
+
+    for(let i = 0; i < cardNumber; i++){
+        cards[i].classList.remove("hidden");
     }
 }
 
-iniciarJogo();
+gameStart();
