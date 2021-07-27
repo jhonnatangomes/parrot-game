@@ -36,6 +36,7 @@ body{
     background-color: #A7e9AF;
     border: 1px solid #99CEA8;
     border-radius: 5px;
+    position: relative;
 }
 
 .card img{
@@ -47,6 +48,20 @@ body{
 .hidden{
     display: none;
 }
+
+.face{
+    backface-visibility: hidden;
+    position: absolute;
+    transition: all .5s;
+}
+
+.back-face{
+    transform: rotateY(180deg);
+}
+
+
+
+
 
 @media (max-width: 872px){
 

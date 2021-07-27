@@ -23,4 +23,14 @@ function generateCards(){
     }
 }
 
+function turnCard(element){
+
+    const frontFace = element.querySelector(".front-face");
+    const backFace = element.querySelector(".back-face");
+
+    backFace.style.transform = "rotateY(0deg)";
+    frontFace.style.transform = "rotateY(180deg)";
+
+}
+
 gameStart();
