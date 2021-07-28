@@ -63,13 +63,15 @@ function turnCard(element){
         numberOfPlays += 1;
     }
     else{
-        backFace.style.transform = "rotateY(0deg)";
-        frontFace.style.transform = "rotateY(180deg)";
-
-        setTimeout(turnCardDown, 1000, element, currentTurnedCard);
-        pair = 1;
-        numberOfPlays += 1;
-        setTimeout(isEnd, 1000);
+        if(element !== currentTurnedCard){
+            backFace.style.transform = "rotateY(0deg)";
+            frontFace.style.transform = "rotateY(180deg)";
+    
+            setTimeout(turnCardDown, 1000, element, currentTurnedCard);
+            pair = 1;
+            numberOfPlays += 1;
+            setTimeout(isEnd, 1000);
+        }
     }
 }
 
