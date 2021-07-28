@@ -96,6 +96,7 @@ function isEnd(){
     if (correctCards === Number(cardNumber)){
         alert(`Você ganhou o jogo em ${numberOfPlays} jogadas e em ${timeElapsed.toFixed(0)} segundos`);
         clearTimeout(time);
+        restartGame();
     }
 }
 
@@ -107,6 +108,22 @@ function startTime(){
 
 function comparator(){
     return Math.random() - 0.5;
+}
+
+function restartGame(){
+    const restart = prompt("Você quer jogar novamente?");
+    const body = document.querySelector("body");
+    const cards = document.querySelector(".cards-container");
+    if(restart === "sim" || restart === "s"){
+        cards.innerHTML = "";
+        numberOfPlays = 0;
+        correctCards = 0;
+        body.style.display = "none";
+        gameStart();
+    }
+    else{
+        alert("Obrigado por jogar o meu jogo!");
+    }
 }
 
 gameStart();
