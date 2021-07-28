@@ -33,9 +33,6 @@ body{
 .card{
     width: 117px;
     height: 146px;
-    background-color: #A7e9AF;
-    border: 1px solid #99CEA8;
-    border-radius: 5px;
     position: relative;
 }
 
@@ -45,23 +42,21 @@ body{
     margin: 24px 7px 22px 10px;
 }
 
-.hidden{
-    display: none;
-}
-
 .face{
+    width: 100%;
+    height: 100%;
+    background-color: #A7e9AF;
+    border: 1px solid #99CEA8;
+    border-radius: 5px;
     backface-visibility: hidden;
     position: absolute;
     transition: all .5s;
+    transform-style: preserve-3d;
 }
 
 .back-face{
     transform: rotateY(180deg);
 }
-
-
-
-
 
 @media (max-width: 872px){
 
