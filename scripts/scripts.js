@@ -30,12 +30,13 @@ function generateCards(){
 
 function displayCards(cards){
     const cardsContainer = document.querySelector(".cards-container");
+    const body = document.querySelector("body");
 
     for(let i = 0; i < cardNumber; i++){
         cardsContainer.innerHTML += `
         <div class="card" onclick="turnCard(this);">
             <div class="front-face face">
-                <img src="images/front.png" alt="Carta de papagaio">
+                <img src="images/front.png">
             </div>
             <div class="back-face face">
                 <img src="images/${cards[i]}">
@@ -43,6 +44,8 @@ function displayCards(cards){
         </div>
         `
     }
+
+    body.style.display = "initial";
     
 }
 
