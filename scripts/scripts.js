@@ -3,7 +3,8 @@ let gifs = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metal
 let gif_alts = ["Parrote do Bob Ross", "Parrote Explosivo", "Parrote Festivo", "Parrote Metaleiro", "Parrote Marinheiro", "Parrotes Triplos", "Parrotes Unicórnios"];
 
 let pair = 1, numberOfPlays = 0, correctCards = 0;
-let cardNumber, currentTurnedCard;
+let cardNumber, currentTurnedCard, timeElapsed, start, time;
+
 
 
 function gameStart(){
@@ -48,6 +49,8 @@ function displayCards(cards){
     }
 
     body.style.display = "initial";
+    start = Date.now();
+    startTime();
     
 }
 
@@ -91,8 +94,15 @@ function turnCardDown(element, currentTurnedCard){
 
 function isEnd(){
     if (correctCards === Number(cardNumber)){
-        alert(`Você ganhou o jogo em ${numberOfPlays} jogadas`);
+        alert(`Você ganhou o jogo em ${numberOfPlays} jogadas e em ${timeElapsed.toFixed(0)} segundos`);
+        clearTimeout(time);
     }
+}
+
+function startTime(){
+    timeElapsed = (Date.now() - start) / 1000;
+    document.querySelector(".clock").innerHTML = `${timeElapsed.toFixed(0)} s`;
+    time = setTimeout(startTime, 1000);
 }
 
 function comparator(){

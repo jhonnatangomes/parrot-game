@@ -59,6 +59,12 @@ body{
     transform: rotateY(180deg);
 }
 
+.clock{
+    position: fixed;
+    right: 50px;
+    font-size: 45px;
+}
+
 @media (max-width: 872px){
 
     .title{
