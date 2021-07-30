@@ -8,14 +8,14 @@ let cardNumber, currentTurnedCard, timeElapsed, start, time;
 
 
 function gameStart(){
-    cardNumber = prompt("Com quantas cartas você deseja jogar? (4-14)");
+    cardNumber = Number(prompt("Com quantas cartas você deseja jogar? (4-14)"));
 
-    while(cardNumber < 4 || cardNumber > 14 || cardNumber % 2 === 1){
+    while(cardNumber < 4 || cardNumber > 14 || cardNumber % 2 === 1 || Number.isNaN(cardNumber)){
         if(cardNumber >= 4 && cardNumber <= 14){
-            cardNumber = prompt("Por favor digite um número par. \nCom quantas cartas você deseja jogar? (4-14)");
+            cardNumber = Number(prompt("Por favor digite um número par. \nCom quantas cartas você deseja jogar? (4-14)"));
         }
         else{
-            cardNumber = prompt("Por favor digite um número entre 4 e 14. \nCom quantas cartas você deseja jogar? (4-14)");
+            cardNumber = Number(prompt("Por favor digite um número entre 4 e 14. \nCom quantas cartas você deseja jogar? (4-14)"));
         }
     }
 
@@ -57,37 +57,44 @@ function displayCards(cards){
 function turnCard(element){
     const frontFace = element.querySelector(".front-face");
     const backFace = element.querySelector(".back-face");  
-    
-    if(pair === 1){
-        backFace.style.transform = "rotateY(0deg)";
-        frontFace.style.transform = "rotateY(180deg)";
-        currentTurnedCard = element;
-        pair = 2;
-        numberOfPlays += 1;
-    }
-    else{
-        if(element !== currentTurnedCard){
+
+    if(!element.classList.contains("turnedCard")){
+        if(pair === 1){
             backFace.style.transform = "rotateY(0deg)";
             frontFace.style.transform = "rotateY(180deg)";
-    
-            setTimeout(turnCardDown, 1000, element, currentTurnedCard);
+            currentTurnedCard = element;
+            currentTurnedCard.classList.add("turnedCard");
+            pair = 2;
+            numberOfPlays += 1;
+        }
+        else{
+            
+            backFace.style.transform = "rotateY(0deg)";
+            frontFace.style.transform = "rotateY(180deg)";
+        
+            setTimeout(isPair, 1000, element, currentTurnedCard);
             pair = 1;
             numberOfPlays += 1;
             setTimeout(isEnd, 1000);
+            
         }
     }
+    
+    
 }
 
-function turnCardDown(element, currentTurnedCard){
+function isPair(element, currentTurnedCard){
 
     if(element.querySelector(".back-face img").src !== currentTurnedCard.querySelector(".back-face img").src){
         currentTurnedCard.querySelector(".front-face").style.transform = "rotateY(0deg)";
         currentTurnedCard.querySelector(".back-face").style.transform = "rotateY(180deg)";
         element.querySelector(".front-face").style.transform = "rotateY(0deg)";
         element.querySelector(".back-face").style.transform = "rotateY(180deg)";
+        currentTurnedCard.classList.remove("turnedCard");
     }
     else{
         correctCards += 2;
+        element.classList.add("turnedCard");
     }
 
 }
