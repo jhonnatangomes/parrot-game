@@ -1,13 +1,12 @@
 let gifs = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metalparrot.gif", "revertitparrot.gif", "tripletsparrot.gif", "unicornparrot.gif"];
 
-let gif_alts = ["Parrote do Bob Ross", "Parrote Explosivo", "Parrote Festivo", "Parrote Metaleiro", "Parrote Marinheiro", "Parrotes Triplos", "Parrotes Unicórnios"];
-
 let pair = 1, numberOfPlays = 0, correctCards = 0;
-let cardNumber, currentTurnedCard, timeElapsed, start, time;
-
+let cardNumber, currentTurnedCard, timeElapsed, start, timeId, playerName;
+const players = [];
 
 
 function gameStart(){
+    playerName = prompt("Qual o seu nome?");
     cardNumber = Number(prompt("Com quantas cartas você deseja jogar? (4-14)"));
 
     while(cardNumber < 4 || cardNumber > 14 || cardNumber % 2 === 1 || Number.isNaN(cardNumber)){
@@ -68,7 +67,6 @@ function turnCard(element){
             numberOfPlays += 1;
         }
         else{
-            
             backFace.style.transform = "rotateY(0deg)";
             frontFace.style.transform = "rotateY(180deg)";
         
@@ -76,11 +74,8 @@ function turnCard(element){
             pair = 1;
             numberOfPlays += 1;
             setTimeout(isEnd, 1000);
-            
         }
     }
-    
-    
 }
 
 function isPair(element, currentTurnedCard){
@@ -102,7 +97,9 @@ function isPair(element, currentTurnedCard){
 function isEnd(){
     if (correctCards === Number(cardNumber)){
         alert(`Você ganhou o jogo em ${numberOfPlays} jogadas e em ${timeElapsed.toFixed(0)} segundos`);
-        clearTimeout(time);
+        clearTimeout(timeId);
+        const score = calculateScore();
+        addPlayer(score);
         restartGame();
     }
 }
@@ -110,7 +107,7 @@ function isEnd(){
 function startTime(){
     timeElapsed = (Date.now() - start) / 1000;
     document.querySelector(".clock").innerHTML = `${timeElapsed.toFixed(0)} s`;
-    time = setTimeout(startTime, 1000);
+    timeId = setTimeout(startTime, 1000);
 }
 
 function comparator(){
@@ -121,6 +118,7 @@ function restartGame(){
     const restart = prompt("Você quer jogar novamente?");
     const body = document.querySelector("body");
     const cards = document.querySelector(".cards-container");
+    
     if(restart === "sim" || restart === "s"){
         cards.innerHTML = "";
         numberOfPlays = 0;
@@ -128,9 +126,65 @@ function restartGame(){
         body.style.display = "none";
         gameStart();
     }
-    else{
+    else if(restart === "não" || restart === "n" || restart === "nao"){
         alert("Obrigado por jogar o meu jogo!");
+        arrangeScore();
     }
+    else{
+        alert("Digite sim(s) ou não(n).\n");
+        restartGame();
+    }
+}
+
+function calculateScore(){
+    return (100 + cardNumber - numberOfPlays) - timeElapsed;
+}
+
+function addPlayer(score){
+    const player = {name: playerName, score: score, time: timeElapsed};
+    players.push(player);
+}
+
+function arrangeScore(){
+    let playerSwap;
+    //bubble sort
+    for(let i = 0; i < players.length - 1; i++){
+        let didSwap = false;
+        for(let j = 0; j < players.length - i - 1; j++){
+            if(players[j].score < players[j+1].score){
+                playerSwap = players[j];
+                players[j] = players[j+1];
+                players[j+1] = playerSwap;
+                didSwap = true;
+            }
+        }
+
+        if(!didSwap){
+            break;
+        }
+    }
+
+    for(let i = 0; i < players.length; i++){
+        players[i].score += players[i].time;
+    }
+
+    printScore();
+}
+
+function printScore(){
+    const scores = document.querySelector(".scores");
+    const modal = document.querySelector(".modal");
+    modal.style.display = "flex";
+
+    for(let i = 0; i < players.length; i++){
+        scores.innerHTML += `
+        <div class="individual-score">
+            <span>${i + 1}. ${players[i].name}</span>
+            <span>${players[i].score} pts  ${players[i].time.toFixed(0)} s</span>
+        </div>
+        `
+    }
+
 }
 
 gameStart();
