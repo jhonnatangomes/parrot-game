@@ -137,7 +137,7 @@ function restartGame(){
 }
 
 function calculateScore(){
-    return (100 + cardNumber - numberOfPlays) - timeElapsed;
+    return (100 + cardNumber - numberOfPlays);
 }
 
 function addPlayer(score){
@@ -157,15 +157,19 @@ function arrangeScore(){
                 players[j+1] = playerSwap;
                 didSwap = true;
             }
+            else if(players[j].score === players[j+1].score){
+                if(players[j].time > players[j+1].time){
+                    playerSwap = players[j];
+                    players[j] = players[j + 1];
+                    players[j + 1] = playerSwap;
+                    didSwap = true;
+                }
+            }
         }
 
         if(!didSwap){
             break;
         }
-    }
-
-    for(let i = 0; i < players.length; i++){
-        players[i].score += players[i].time;
     }
 
     printScore();
