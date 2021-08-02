@@ -1,7 +1,7 @@
-#Score System
+# Score System
 The score system is based on the idea that a player that completes the game in less steps should have a higher score than a player who completed in more steps. 
 
-##calculateScore function
+## calculateScore function
 A good and simple way to ensure that less steps will yield a higher score is to make the score a subtraction between a constant and the number of plays performed by the player. But, this approach has a clear problem. Games with less cards will always be completed with fewer steps. Therefore, the amount of cards in each game must be accounted in our subtraction in order to balance out the score. Thus, a player that completed a 4-card game in 4 plays will have the same amount of points as the player who completed an 8-card game in 8 plays. 
 
 In order to make 100 points the highest possible score, the chosen function returns:
